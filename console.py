@@ -48,23 +48,14 @@ class HBNBCommand(cmd.Cmd):
             return
         try:
             args = shlex.split(args)
+            kwargs = self.parse_input(args)
             new_instance = eval(args[0])()
-            if len(args) > 1:
-                my_dict = dict(arg.split('=') for arg in args[1:])
-                for key, value in my_dict.items():
-                    if '_' in value:
-                        value = value.replace('_', ' ')
-                    try:
-                        value = eval(value)
-                    except:
-                        pass
-                    setattr(new_instance, key, value)
-                new_instance.save()
-            else:
-                new_instance.save()
+            for key, value in kwargs.items():
+                setattr(new_instance, key, value)
+            new_instance.save()
             print(new_instance.id)
-            
-        except:
+
+        except Exception as e:
             print("** class doesn't exist **")
 
     def do_show(self, args):
@@ -236,21 +227,15 @@ class HBNBCommand(cmd.Cmd):
         '''
             Parses parameters and returns a dictionary
         '''
-        arr = [arg.split('=') for arg in args[1:]]
-        cleaned = []
-        for ele in arr:
-            try:
-                cleaned.append((ele[0], eval(ele[1])))
-            except NameError:
-                cleaned.append((ele[0], ele[1].replace('_', ' ')))
-            except (SyntaxError, IndexError) as e:
-                reason = str(e).split()[1]
-                if (reason == 'token'):
-                    cleaned.append((ele[0], ele[1]))
-                else:
+        pairs = [arg.split('=') for arg in args[1:]]
+        for pair in pairs:
+            if '_' in pair[1]:
+                pair[1] = pair[1].replace('_', ' ')
+                try:
+                    pair[1] = eval(pair[1])
+                except Exception:
                     pass
-        to_dict = dict(cleaned)
-        return to_dict
+        return dict(pairs)
 
 
 if __name__ == "__main__":
