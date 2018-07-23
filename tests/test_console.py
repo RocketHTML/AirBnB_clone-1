@@ -124,8 +124,9 @@ class test_console(unittest.TestCase):
             Test dictionary syntax for create
         '''
         cmd1 = 'create Place a="a" b="b_b" c=4 '
-        cmd2 = 'd=4.44 e=\'a\' f= g=2.2.2 h="a\"b\"c" i'
-        cmd = cmd1 + cmd2
+        cmd2 = 'a_a="0001" '
+        cmd3 = 'd=4.44 e=\'a\' f= g=2.2.2 h="a\"b\"c" i'
+        cmd = cmd1 + cmd2 + cmd3
         console = self.create()
         console.onecmd(cmd)
 
@@ -134,6 +135,7 @@ class test_console(unittest.TestCase):
         obj = objs['Place'+'.'+uid].to_dict()
 
         self.assertEqual(obj['a'], "a")
+        self.assertEqual(obj['a_a'], "0001")
         self.assertEqual(obj['b'], "b b")
         self.assertEqual(obj['c'], 4)
         self.assertEqual(obj['d'], 4.44)

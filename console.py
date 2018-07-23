@@ -235,8 +235,12 @@ class HBNBCommand(cmd.Cmd):
                 cleaned.append((ele[0], eval(ele[1])))
             except NameError:
                 cleaned.append((ele[0], ele[1].replace('_', ' ')))
-            except (SyntaxError, IndexError):
-                pass
+            except (SyntaxError, IndexError) as e:
+                reason = str(e).split()[1]
+                if (reason == 'token'):
+                    cleaned.append((ele[0], ele[1]))
+                else:
+                    pass
         to_dict = dict(cleaned)
         return to_dict
 
