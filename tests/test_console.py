@@ -119,6 +119,35 @@ class test_console(unittest.TestCase):
         console.onecmd("create User")
         self.assertTrue(isinstance(self.capt_out.getvalue(), str))
 
+    def test_create_dictionary(self):
+        '''
+            Test dictionary syntax for create
+        '''
+        cmd1 = 'create Place a="a" b="b_b" c=4 '
+        cmd2 = 'a_a="0001" d=4.44'
+        cmd = cmd1 + cmd2
+        console = self.create()
+        console.onecmd(cmd)
+
+        uid = self.capt_out.getvalue().replace('\n', '')
+        objs = models.storage.all()
+        sys.stdout = self.backup
+        print(uid)
+        obj = objs['Place'+'.'+uid].to_dict()
+
+        self.assertEqual(obj['a'], "a")
+        self.assertEqual(obj['a_a'], "0001")
+        self.assertEqual(obj['b'], "b b")
+        self.assertEqual(obj['c'], 4)
+        self.assertEqual(obj['d'], 4.44)
+
+        with self.assertRaises(KeyError):
+            obj['f']
+        with self.assertRaises(KeyError):
+            obj['g']
+        with self.assertRaises(KeyError):
+            obj['i']
+
     def test_class_name(self):
         '''
             Testing the error messages for class name missing.

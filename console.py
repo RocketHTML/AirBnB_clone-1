@@ -231,10 +231,16 @@ class HBNBCommand(cmd.Cmd):
         for pair in pairs:
             if '_' in pair[1]:
                 pair[1] = pair[1].replace('_', ' ')
-                try:
+            try:
+                if '[' in pair[1] or '(' in pair[1]:
+                    pair[1] = list(pair[1])
+                elif '.' in pair[1]:
+                    pair[1] = float(pair[1])
+                else:
                     pair[1] = eval(pair[1])
-                except Exception:
-                    pass
+                #pair[1] = eval(pair[1])
+            except Exception:
+                pass
         return dict(pairs)
 
 
