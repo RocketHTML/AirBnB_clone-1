@@ -14,6 +14,9 @@ class BaseModel:
     '''
         Base class for other classes to be used for the duration.
     '''
+    id = Column(String(60), nullable=False, primary_key=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     def __init__(self, *args, **kwargs):
         '''
             Initialize public instance attributes.

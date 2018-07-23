@@ -18,12 +18,18 @@ class DBStorage:
 	__session = None
 
 	def __init__(self):
-		pass
+		self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
+            os.getenv("HBNB_MYSQL_USER"),os.getenv("HBNB_MYSQL_PWD"),
+            os.getenv("HBNB_MYSQL_HOST"),os.getenv("HBNB_MYSQL_DB")),
+                                      pool_pre_ping=True)
 
 	def all(self, cls=None):
 		pass
 
 	def new(self, obj):
+		pass
+
+	def save(self):
 		pass
 
 	def delete(self, obj=None):
