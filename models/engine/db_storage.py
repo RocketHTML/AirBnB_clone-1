@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+<<<<<<< HEAD
 '''
     Define class DatabaseStorage
 '''
@@ -33,3 +34,37 @@ class DBStorage:
         query current database based on cls name
         """
         
+=======
+from sqlalchemy import create_engine
+from sqlalchemy import MetaData
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session
+from models.base_model import BaseModel, Base
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+import os
+
+
+class DBStorage:
+	__engine = None
+	__session = None
+
+	def __init__(self):
+		pass
+
+	def all(self, cls=None):
+		pass
+
+	def new(self, obj):
+		pass
+
+	def delete(self, obj=None):
+		pass
+
+	def reload(self):
+		pass
+>>>>>>> 61cb8e9b75122780a9630c3db7912f0d653a035c

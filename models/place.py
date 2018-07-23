@@ -11,8 +11,8 @@ class Place(BaseModel, Base):
         Define the class Place that inherits from BaseModel.
     '''
     __tablename__ = 'places'
-    city_id = Column(String(60), nullable=False, ForeignKey('cities.id'))
-    user_id = Column(String(60), nullable=False, ForeignKey('users.id'))
+    city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
+    user_id = Column(String(60),  ForeignKey('users.id'), nullable=False)
     name = Column(String(128), nullable=False)
     description = Column(String(1024))
     number_rooms = Column(Integer, default=0, nullable=False)
