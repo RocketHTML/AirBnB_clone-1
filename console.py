@@ -48,16 +48,21 @@ class HBNBCommand(cmd.Cmd):
             return
         try:
             args = shlex.split(args)
-            kwargs = self.parse_input(args)
             new_instance = eval(args[0])()
-            for key, value in kwargs.items():
-                setattr(new_instance, key, value)
-            new_instance.save()
+            if len(args) > 1:
+                my_dict = dict(arg.split('=') for arg in args[1:])
+                for key, value in my_dict.items():
+                    if '_' in value:
+                        value = value.replace('_', ' ')
+                    try:
+                        value = eval(value)
+                    except:
+                        pass
+                    setattr(new_instance, key, value)
+                new_instance.save()
+            else:
+                new_instance.save()
             print(new_instance.id)
-
-        except Exception as e:
-            print(e)
-            print("** class doesn't exist **")
 
     def do_show(self, args):
         '''
