@@ -29,7 +29,7 @@ class DBStorage:
         db = os.getenv('HBNB_MYSQL_DB', default=None)
         form = "mysql+mysqldb://{}:{}@{}/{}"
         connection = form.format(user, pw, host, db)
-		self.__engine = create_engine(connection, pool_pre_ping=True)
+        self.__engine = create_engine(connection, pool_pre_ping=True)
 
 	def all(self, cls=None):
         """
