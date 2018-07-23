@@ -63,6 +63,9 @@ class HBNBCommand(cmd.Cmd):
             else:
                 new_instance.save()
             print(new_instance.id)
+            
+        except:
+            print("** class doesn't exist **")
 
     def do_show(self, args):
         '''
