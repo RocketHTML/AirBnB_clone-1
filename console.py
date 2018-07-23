@@ -22,6 +22,10 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = ("(hbnb) ")
 
+    def do_echo(self, args):
+        print(args)
+        print(type(args))
+
     def do_quit(self, args):
         '''
             Quit command to exit the program.
@@ -44,11 +48,15 @@ class HBNBCommand(cmd.Cmd):
             return
         try:
             args = shlex.split(args)
+            kwargs = self.parse_input(args)
             new_instance = eval(args[0])()
+            for key, value in kwargs.items():
+                setattr(new_instance, key, value)
             new_instance.save()
             print(new_instance.id)
 
-        except:
+        except Exception as e:
+            print(e)
             print("** class doesn't exist **")
 
     def do_show(self, args):
@@ -213,8 +221,24 @@ class HBNBCommand(cmd.Cmd):
             cmd_arg = args[0] + " " + args[2]
             func = functions[args[1]]
             func(cmd_arg)
-        except:
+        except Exception:
             print("*** Unknown syntax:", args[0])
+
+    def parse_input(self, args):
+        '''
+            Parses parameters and returns a dictionary
+        '''
+        arr = [arg.split('=') for arg in args[1:]]
+        cleaned = []
+        for ele in arr:
+            try:
+                cleaned.append((ele[0], eval(ele[1])))
+            except NameError:
+                cleaned.append((ele[0], ele[1].replace('_', ' ')))
+            except (SyntaxError, IndexError):
+                pass
+        to_dict = dict(cleaned)
+        return to_dict
 
 
 if __name__ == "__main__":

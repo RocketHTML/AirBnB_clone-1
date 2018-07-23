@@ -8,6 +8,7 @@ import unittest
 from io import StringIO
 from console import HBNBCommand
 from unittest.mock import create_autospec
+import os
 
 
 class test_console(unittest.TestCase):
@@ -19,8 +20,12 @@ class test_console(unittest.TestCase):
         sys.stdout = self.capt_out
 
     def tearDown(self):
-        ''''''
+        '''teardown for'''
         sys.stdout = self.backup
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
 
     def create(self):
         ''' create an instance of the HBNBCommand class'''
@@ -113,6 +118,34 @@ class test_console(unittest.TestCase):
         console = self.create()
         console.onecmd("create User")
         self.assertTrue(isinstance(self.capt_out.getvalue(), str))
+
+    def test_create_dictionary(self):
+        '''
+            Test dictionary syntax for create
+        '''
+        cmd1 = 'create Place a="a" b="b_b" c=4 '
+        cmd2 = 'd=4.44 e=\'a\' f= g=2.2.2 h="a\"b\"c" i'
+        cmd = cmd1 + cmd2
+        console = self.create()
+        console.onecmd(cmd)
+
+        uid = self.capt_out.getvalue().replace('\n', '')
+        objs = models.storage.all()
+        obj = objs['Place'+'.'+uid].to_dict()
+
+        self.assertEqual(obj['a'], "a")
+        self.assertEqual(obj['b'], "b b")
+        self.assertEqual(obj['c'], 4)
+        self.assertEqual(obj['d'], 4.44)
+        self.assertEqual(obj['e'], "a")
+        self.assertEqual(obj['h'], "abc")
+
+        with self.assertRaises(KeyError):
+            obj['f']
+        with self.assertRaises(KeyError):
+            obj['g']
+        with self.assertRaises(KeyError):
+            obj['i']
 
     def test_class_name(self):
         '''
