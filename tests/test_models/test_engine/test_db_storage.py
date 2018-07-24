@@ -21,12 +21,12 @@ class testDBStorage(unittest.TestCase):
         os.environ['HBNB_MYSQL_HOST'] = 'localhost'
         os.environ['HBNB_MYSQL_DB'] = 'hbnb_test_db'
         os.environ['HBNB_ENV'] = 'test'
-        os.environ['HBNB_TYPE_STORAGE'] = 'db'
 
     def setUp(self):
         '''
             Initializing tables and declaritive classes, and open session
         '''
+        os.environ['HBNB_TYPE_STORAGE'] = 'db'
         self.storage = DBStorage()
         self.storage.reload()
         ## insert some starter data - after testing insert capability
