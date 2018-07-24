@@ -2,12 +2,14 @@
 '''
     Implementation of the State class
 '''
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, ForeignKey
+from sqlalchemy.orm import relationship
 
-from models.base_model import BaseModel
 
-
-class State(BaseModel):
+class State(BaseModel, Base):
     '''
         Implementation for the State.
     '''
-    name = ""
+    __tablename__ = "states"
+    name = Column(String(60), ForeignKey("states.id"), nullable=False)

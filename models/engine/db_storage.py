@@ -35,16 +35,33 @@ class DBStorage:
         """
         query current database based on cls name
         """
-		pass
+        allobjs = {}
+        if cls:
+            cname = cls.__name__
+            query = self.__session.query(cls)
+            for instance in query:
+                allobjs[cname + '.' +instance.id] = instance
+        else:
+            for subclass in Base.__subclasses__():
+                query = self.__session.query(subclass)
+                cname = subclass.__name__
+                for instance in query:
+                    allobjs[cname + '.' +instance.id] = instance
+        return allobjs
 
     def new(self, obj):
-        pass
+        if obj:
+            self.__session.add(obj)
 
     def save(self):
-        pass
+        self.__session.commit()
 
     def delete(self, obj=None):
-        pass
+        if obj:
+            self.__session.delete(obj)
 
     def reload(self):
-        pass
+        Base.metadata.create_all(self.__engine)
+        sm = sessionmaker(engine, expire_on_commit=False)
+        Session = scoped_session(sm)
+        self.__session = Session()
