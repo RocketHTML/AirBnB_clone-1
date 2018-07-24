@@ -30,6 +30,8 @@ class DBStorage:
         form = "mysql+mysqldb://{}:{}@{}/{}"
         connection = form.format(user, pw, host, db)
         self.__engine = create_engine(connection, pool_pre_ping=True)
+        if os.getenv('HBNB_ENV') == 'test':
+                Base.metadata.drop_all(self.__engine)
 
 	def all(self, cls=None):
         """
@@ -59,9 +61,10 @@ class DBStorage:
     def delete(self, obj=None):
         if obj:
             self.__session.delete(obj)
+            self.save()
 
     def reload(self):
         Base.metadata.create_all(self.__engine)
-        sm = sessionmaker(engine, expire_on_commit=False)
+        sm = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sm)
         self.__session = Session()

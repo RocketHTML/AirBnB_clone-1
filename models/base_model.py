@@ -5,15 +5,25 @@
 import uuid
 from datetime import datetime
 import models
-Base = declarative_base()
+import os
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, String, DateTime
+
+
+if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+    Base = declarative_base()
+else:
+    class Base:
+        pass
 
 class BaseModel:
     '''
         Base class for other classes to be used for the duration.
     '''
-    id = Column(String(60), nullable=False, primary_key=True)
-    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    if os.getenv('HBNB_TYPE_STORAGE') == db:
+        id = Column(String(60), nullable=False, primary_key=True)
+        created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+        updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     def __init__(self, *args, **kwargs):
         '''
             Initialize public instance attributes.
