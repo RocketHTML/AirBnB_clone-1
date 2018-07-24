@@ -20,7 +20,7 @@ class BaseModel:
     '''
         Base class for other classes to be used for the duration.
     '''
-    if os.getenv('HBNB_TYPE_STORAGE') == db:
+    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
         id = Column(String(60), nullable=False, primary_key=True)
         created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
         updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())

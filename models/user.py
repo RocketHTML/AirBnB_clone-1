@@ -4,7 +4,7 @@
 '''
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
-from sqlalchemy import Relationship
+from sqlalchemy.orm import relationship
 
 
 class User(BaseModel, Base):
@@ -16,4 +16,4 @@ class User(BaseModel, Base):
     password = Column(String(128), nullable=False)
     first_name = Column(String(128))
     last_name = Column(String(128))
-    places = Relationship("Place", backref="user", cascade="delete")
+    places = relationship("Place", backref="user", cascade="delete")
