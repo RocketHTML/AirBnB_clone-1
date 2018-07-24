@@ -5,11 +5,27 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, ForeignKey, String
 from sqlalchemy.orm import relationship
+import os
+import models
+from models.city import City
 
 
 class State(BaseModel, Base):
     '''
         Implementation for the State.
     '''
-    __tablename__ = "states"
-    name = Column(String(60), ForeignKey("states.id"), nullable=False)
+    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+        __tablename__ = "states"
+        name = Column(String(60), ForeignKey("states.id"), nullable=False)
+        cities = relationship("City", backref="state", cascade="delete")
+    else:
+        name = ""
+
+        @property
+        def cities(self):
+            cities_dict = models.storage.all(City)
+            cities_list = []
+            for city in cities_dict.values():
+                if city.state_id == self.id:
+                    cities_list.append(city)
+            return cities_list
