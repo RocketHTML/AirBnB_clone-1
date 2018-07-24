@@ -34,23 +34,23 @@ class DBStorage:
             if os.getenv('HBNB_ENV') == 'test':
                     Base.metadata.drop_all(self.__engine)
 
-            def all(self, cls=None):
-                """
-                query current database based on cls name
-                """
-                allobjs = {}
-                if cls:
-                    cname = cls.__name__
-                    query = self.__session.query(cls)
-                for instance in query:
-                    allobjs[cname + '.' + instance.id] = instance
-                else:
-                    for subclass in Base.__subclasses__():
-                        query = self.__session.query(subclass)
-                        cname = subclass.__name__
-                        for instance in query:
-                            allobjs[cname + '.' + instance.id] = instance
-                return allobjs
+        def all(self, cls=None):
+            """
+            query current database based on cls name
+            """
+            allobjs = {}
+            if cls:
+                cname = cls.__name__
+                query = self.__session.query(cls)
+            for instance in query:
+                allobjs[cname + '.' + instance.id] = instance
+            else:
+                for subclass in Base.__subclasses__():
+                    query = self.__session.query(subclass)
+                    cname = subclass.__name__
+                    for instance in query:
+                        allobjs[cname + '.' + instance.id] = instance
+            return allobjs
 
         def new(self, obj):
             """
