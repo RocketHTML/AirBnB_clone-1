@@ -42,8 +42,8 @@ class DBStorage:
             if cls:
                 cname = cls.__name__
                 query = self.__session.query(cls)
-            for instance in query:
-                allobjs[cname + '.' + instance.id] = instance
+                for instance in query:
+                    allobjs[cname + '.' + instance.id] = instance
             else:
                 for subclass in Base.__subclasses__():
                     query = self.__session.query(subclass)
