@@ -23,12 +23,12 @@ class Place(BaseModel, Base):
             review_dict = models.storage.all(Review)
             review_list = []
             for review in review_dict.values():
-                if review.place_id == self.id
-                review_list.append(review)
+                if review.place_id == self.id:
+                    review_list.append(review)
             return review
 
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
-    user_id = Column(String(60),  ForeignKey('users.id'), nullable=False)
+    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
     name = Column(String(128), nullable=False)
     description = Column(String(1024))
     number_rooms = Column(Integer, default=0, nullable=False)
