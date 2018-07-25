@@ -27,4 +27,4 @@ class testDBStorage(unittest.TestCase):
         '''
             Empty test to ensure there are no errors
         '''
-        assertEqual(True, True)
+        self.assertEqual(True, True)
