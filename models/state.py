@@ -15,11 +15,12 @@ class State(BaseModel, Base):
         Implementation for the State.
     '''
     __tablename__ = "states"
-    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+    if os.getenv('HBNB_TYPE_STORAGE') != 'db':
+        name = ""
+    else:
         name = Column(String(128), nullable=False)
         cities = relationship("City", backref="state", cascade="delete")
-    else:
-        name = ""
+
         @property
         def cities(self):
             cities_dict = models.storage.all(City)
