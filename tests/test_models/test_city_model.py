@@ -5,14 +5,29 @@
 '''
 
 import unittest
-from models.base_model import BaseModel
-from models.city import City
+import utility
+#from models.base_model import BaseModel
+#from models.city import City
 
+BaseModel = ''
+City = ''
 
 class TestUser(unittest.TestCase):
     '''
         Testing User class
     '''
+
+    def setUp(self):
+        ''' appropriately set the environment for testing '''
+
+        utility.env_switcher('file')
+        base_model = __import__('models.base_model')
+        city = __import__('models.city')
+        utility.reload_modules([base_model, city])
+        global BaseModel
+        global City
+        BaseModel = base_model.BaseModel
+        City = city.City
 
     def test_City_inheritance(self):
         '''

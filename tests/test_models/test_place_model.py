@@ -5,6 +5,7 @@
 '''
 
 import unittest
+import utility
 from models.base_model import BaseModel
 from models.place import Place
 
@@ -13,6 +14,11 @@ class TestUser(unittest.TestCase):
     '''
         Testing Place class
     '''
+
+    def setUp(self):
+        ''' appropriately set the environment for testing '''
+        utility.env_switcher('file')
+        self.new_place = Place()
 
     def setUp(self):
         '''

@@ -5,6 +5,7 @@
 '''
 
 import unittest
+import utility
 from models.base_model import BaseModel
 from io import StringIO
 import sys
@@ -17,13 +18,12 @@ class TestBase(unittest.TestCase):
     '''
 
     def setUp(self):
-        '''
-            Initializing instance.
-        '''
+        ''' appropriately set the environment for testing '''
+        utility.env_switcher('file')
         self.my_model = BaseModel()
         self.my_model.name = "Binita Rai"
 
-    def TearDown(self):
+    def tearDown(self):
         '''
             Removing instance.
         '''

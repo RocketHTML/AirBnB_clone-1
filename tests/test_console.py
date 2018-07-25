@@ -5,6 +5,7 @@
 import sys
 import models
 import unittest
+import utility
 from io import StringIO
 from console import HBNBCommand
 from unittest.mock import create_autospec
@@ -13,8 +14,10 @@ import os
 
 class test_console(unittest.TestCase):
     ''' Test the console module'''
+
     def setUp(self):
-        '''setup for'''
+        ''' appropriately set the environment for testing '''
+        utility.env_switcher('file')
         self.backup = sys.stdout
         self.capt_out = StringIO()
         sys.stdout = self.capt_out

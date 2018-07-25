@@ -5,6 +5,7 @@
 '''
 
 import unittest
+import utility
 from models.base_model import BaseModel
 from models.amenity import Amenity
 
@@ -13,6 +14,10 @@ class TestAmenity(unittest.TestCase):
     '''
         Testing Amenity class
     '''
+
+    def setUp(self):
+        ''' appropriately set the environment for testing '''
+        utility.env_switcher('file')
 
     def test_Amenity_inheritence(self):
         '''

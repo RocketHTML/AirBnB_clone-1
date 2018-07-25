@@ -5,6 +5,7 @@
 '''
 
 import unittest
+import utility
 from models.base_model import BaseModel
 from models.user import User
 from io import StringIO
@@ -16,6 +17,10 @@ class TestUser(unittest.TestCase):
     '''
         Testing User class
     '''
+
+    def setUp(self):
+        ''' appropriately set the environment for testing '''
+        utility.env_switcher('file')
 
     def test_User_inheritance(self):
         '''

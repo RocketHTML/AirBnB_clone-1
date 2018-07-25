@@ -6,8 +6,8 @@
 import os
 import setenv
 import unittest
-from models.base_model import BaseModel
-from models.engine.db_storage import DBStorage
+import utility
+
 
 
 class testDBStorage(unittest.TestCase):
@@ -18,8 +18,18 @@ class testDBStorage(unittest.TestCase):
     def setUp(self):
         '''
             Initializing tables and declaritive classes, and open session
+
+            Set storage to FileStorage when host machine doesn't have mysql installed
         '''
-        self.storage = DBStorage()
+        utility.env_switcher('file')
+        from models.base_model import BaseModel
+        from models.engine.db_storage import DBStorage
+        from models.engine.file_storage import FileStorage
+        
+        if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+            self.storage = DBStorage()
+        else:
+            self.storage = FileStorage()
         self.storage.reload()
         ## insert some starter data - after testing insert capability
 

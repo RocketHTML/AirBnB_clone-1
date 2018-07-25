@@ -3,6 +3,7 @@
     Contain tests for the state module.
 '''
 import unittest
+import utility
 from models.base_model import BaseModel
 from models.state import State
 
@@ -11,6 +12,10 @@ class TestState(unittest.TestCase):
     '''
         Test the State class.
     '''
+
+    def setUp(self):
+        ''' appropriately set the environment for testing '''
+        utility.env_switcher('file')
 
     def test_State_inheritence(self):
         '''
