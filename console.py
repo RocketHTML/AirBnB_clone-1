@@ -23,6 +23,9 @@ class HBNBCommand(cmd.Cmd):
     prompt = ("(hbnb) ")
 
     def do_echo(self, args):
+        """
+        Echo method
+        """
         print(args)
         print(type(args))
 
