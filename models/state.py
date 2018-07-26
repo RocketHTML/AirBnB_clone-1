@@ -17,7 +17,7 @@ class State(BaseModel, Base):
     __tablename__ = "states"
     if os.getenv('HBNB_TYPE_STORAGE') != 'db':
         name = ""
-        
+
         @property
         def cities(self):
             cities_dict = models.storage.all(City)
