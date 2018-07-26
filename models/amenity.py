@@ -7,6 +7,7 @@ import os
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models import place
+import os
 
 
 class Amenity(BaseModel, Base):

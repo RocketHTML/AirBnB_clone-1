@@ -10,6 +10,7 @@ from models.base_model import BaseModel
 from io import StringIO
 import sys
 import datetime
+import time
 
 
 class TestBase(unittest.TestCase):
@@ -61,6 +62,7 @@ class TestBase(unittest.TestCase):
             updated_at attribute.
         '''
         old_update = self.my_model.updated_at
+        time.sleep(0.1)
         self.my_model.save()
         self.assertNotEqual(self.my_model.updated_at, old_update)
 
