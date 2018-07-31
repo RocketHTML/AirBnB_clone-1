@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Configured nginx server for custom header
+# automate building of nginx web_static directory structure
 location="location /hbnb_static {\n alias /data/web_static/current; \n}\n"
 file=/etc/nginx/sites-available/default
 html="<html>
