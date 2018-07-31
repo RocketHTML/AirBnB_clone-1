@@ -20,5 +20,7 @@ def configure_nginx():
         They'll create /data/webstatic/[releases|shared] dirs.
             As well as install nginx and point it at a default index.html
     """
-    put('./0-setup_web_static.sh', '/tmp/server_setup.sh', mode=744)
-    run('sudo /tmp/server_setup.sh')
+    src = './0-setup_web_static.sh'
+    dst = '~/server_setup.sh'
+    put(src, dst, mode=744)
+    run('sudo {}'.format(dst))
