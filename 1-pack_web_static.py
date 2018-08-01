@@ -9,7 +9,7 @@ import os
 web1 = "35.237.187.19"
 web2 = "35.196.245.228"
 lb = "104.196.146.126 lb"
-local = "localhost"
+loc = "localhost"
 
 env.hosts = []
 env.user = 'ubuntu'
@@ -19,7 +19,7 @@ def do_pack():
     web = 'web_static'
     time = datetime.now().strftime('%Y%m%d%H%M%S')
     tar = 'versions/{0}_{1}.tgz'.format(web, time)
-    local('mkdir versions')
+    local('mkdir -p versions')
     local('tar cvzf {} {}'.format(tar, web))
     try:
         size = os.path.getsize(tar)
