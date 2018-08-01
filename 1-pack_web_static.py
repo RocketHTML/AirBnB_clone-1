@@ -9,8 +9,9 @@ import os
 web1 = "35.237.187.19"
 web2 = "35.196.245.228"
 lb = "104.196.146.126 lb"
+local = "localhost"
 
-env.hosts = [web1, web2]
+env.hosts = []
 env.user = 'ubuntu'
 env.key_filename = '/root/.ssh/id_rsa'
 
