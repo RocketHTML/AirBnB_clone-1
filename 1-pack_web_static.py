@@ -15,6 +15,7 @@ env.hosts = []
 env.user = 'ubuntu'
 env.key_filename = '/root/.ssh/id_rsa'
 
+
 def do_pack():
     web = 'web_static'
     time = datetime.now().strftime('%Y%m%d%H%M%S')
