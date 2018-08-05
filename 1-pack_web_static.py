@@ -11,11 +11,11 @@ web2 = "35.196.245.228"
 lb = "104.196.146.126 lb"
 loc = "localhost"
 
-env.hosts = []
+env.hosts = [web1, web2]
 env.user = 'ubuntu'
 env.key_filename = '/root/.ssh/id_rsa'
 
-
+@runs_once
 def do_pack():
     web = 'web_static'
     time = datetime.now().strftime('%Y%m%d%H%M%S')
