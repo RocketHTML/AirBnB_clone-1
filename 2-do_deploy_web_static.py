@@ -33,14 +33,14 @@ def do_pack():
 def do_deploy(archive_path):
     ''' add new release from tar and point symlink at it '''
     put(archive_path, '/tmp/')
-    no_ext = re.sub('.tgz$', '', archive_path)
-    no_pre = re.sub('^.*/', '', archive_path) 
-    fn = re.sub('^.*/', '', no_ext)
+    no_ext = re.sub('.tgz$', '', archive_path) # remove extension
+    no_pre = re.sub('^.*/', '', archive_path)  # remove prefix
+    fn = re.sub('^.*/', '', no_ext) # remove both
 
     web = 'web_static'
-    webdir = '/data/{}'.format(web)
-    releases = '{}/releases'.format(webdir)
-    new_rel = '{}/{}'.format(releases, fn)
+    webdir = '/data/web_static'
+    releases = '/data/web_static/releases'
+    new_rel = '/data/web_static/releases/{}'.format(fn)
     run('mkdir -p {}/'.format(new_rel))
     run('tar -xzf /tmp/{} -C {}/'.format(no_pre, new_rel))
     run('rm /tmp/{}'.format(no_pre))
