@@ -16,6 +16,7 @@ env.hosts = [web1, web2]
 env.user = 'ubuntu'
 env.key_filename = '/root/.ssh/id_rsa'
 
+
 @runs_once
 def do_pack():
     ''' compress local new release to tar'''
@@ -31,13 +32,14 @@ def do_pack():
     except os.error:
         return None
 
+
 def do_deploy(archive_path):
     ''' add new release from tar and point symlink at it '''
     try:
         put(archive_path, '/tmp/')
-        no_ext = re.sub('.tgz$', '', archive_path) # remove extension
-        no_pre = re.sub('^.*/', '', archive_path)  # remove prefix
-        fn = re.sub('^.*/', '', no_ext) # remove both
+        no_ext = re.sub('.tgz$', '', archive_path)  # remove extension
+        no_pre = re.sub('^.*/', '', archive_path)   # remove prefix
+        fn = re.sub('^.*/', '', no_ext)  # remove both
 
         web = 'web_static'
         webdir = '/data/web_static'
