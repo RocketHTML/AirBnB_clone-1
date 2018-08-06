@@ -54,3 +54,10 @@ def do_deploy(archive_path):
         print("new version deployed!")
     except Exception:
         return False
+
+def deploy():
+    path = do_pack()
+    if (path is not None):
+        return do_deploy(path)
+    else:
+        return False
