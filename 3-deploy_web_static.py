@@ -5,6 +5,7 @@
 from fabric.api import *
 from datetime import datetime
 import os
+import re
 
 web1 = "35.237.187.19"
 web2 = "35.196.245.228"
