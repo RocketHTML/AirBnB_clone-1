@@ -19,3 +19,9 @@ html = '''
 img = '''
 <img src={}></img>
 '''
+
+css = '''
+    <style>
+    {}
+    </style>
+'''
