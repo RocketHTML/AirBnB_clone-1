@@ -31,6 +31,13 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         '''
             Initialize public instance attributes.
+
+            kwargs is used only for reloading,
+            and should not be used for creating new entities.
+
+            create dummy entities and then update them.
+
+            id will not be set to a random guid when kwargs is set.
         '''
         if (len(kwargs) == 0):
             self.id = str(uuid.uuid4())
@@ -58,6 +65,15 @@ class BaseModel:
         '''
         return ("[{}] ({}) {}".format(self.__class__.__name__,
                                       self.id, self.__dict__))
+
+    def update(self, **kwargs):
+        '''
+            Update object with new values
+        '''
+        for key, val in kwargs.items():
+            if "__class__" not in key:
+                setattr(self, key, val)
+
 
     def save(self):
         '''
