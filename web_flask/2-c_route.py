@@ -21,7 +21,7 @@ def hbnb():
 
 
 @app.route('/c/<text>')
-def c():
+def c(text):
     return("C {}".format(text))
 
 
