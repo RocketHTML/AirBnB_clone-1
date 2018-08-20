@@ -22,9 +22,8 @@ def hbnb():
 
 @app.route('/c/<text>')
 def c(text):
-    return("C {}".format(text))
+    return("C {}".format(text.replace('_', ' ')))
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-    
