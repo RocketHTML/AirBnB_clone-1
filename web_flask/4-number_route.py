@@ -27,7 +27,7 @@ def c(text):
 
 @app.route('/number/<int:n>')
 def number(n):
-    return("n is a number")
+    return("{} is a number".format(n))
 
 
 @app.route('/number_template/<int:n>')
